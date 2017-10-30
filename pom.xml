@@ -1,0 +1,67 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.newforma</groupId>
+	<artifactId>janusgraph-es-aws-authenticator</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>JanusGraph AWS Authenticator</name>
+	<description>A plug-in for JanusGraph ES REST providing performing authentication for AWS ES service</description>
+	<properties>
+		<janusgraph.es.version>0.2.0</janusgraph.es.version>
+		<aws.signing.interceptor>0.0.20</aws.signing.interceptor>
+		<aws.java.sdk.version>1.11.125</aws.java.sdk.version>
+		<dependency.plugin.version>3.0.2</dependency.plugin.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.janusgraph</groupId>
+			<artifactId>janusgraph-es</artifactId>
+			<version>${janusgraph.es.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>vc.inreach.aws</groupId>
+			<artifactId>aws-signing-request-interceptor</artifactId>
+			<version>${aws.signing.interceptor}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-core</artifactId>
+			<version>${aws.java.sdk.version}</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.7.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>${dependency.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/dependencies</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<excludeScope>provided</excludeScope>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
