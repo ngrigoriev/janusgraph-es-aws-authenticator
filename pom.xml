@@ -3,14 +3,16 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.newforma</groupId>
 	<artifactId>janusgraph-es-aws-authenticator</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<!-- will align the version of the authenticator to JG version -->
+	<version>0.3.1</version>
 	<name>JanusGraph AWS Authenticator</name>
 	<description>A plug-in for JanusGraph ES REST providing performing authentication for AWS ES service</description>
 	<properties>
-		<janusgraph.es.version>0.2.0</janusgraph.es.version>
-		<aws.signing.interceptor>0.0.20</aws.signing.interceptor>
-		<aws.java.sdk.version>1.11.125</aws.java.sdk.version>
-		<dependency.plugin.version>3.0.2</dependency.plugin.version>
+		<janusgraph.es.version>0.3.1</janusgraph.es.version>
+		<aws.signing.interceptor>0.0.22</aws.signing.interceptor>
+		<!-- aligned to the version of AWS SDK used by the latest JG DynamoDB storage backend -->
+		<aws.java.sdk.version>1.11.281</aws.java.sdk.version>
+		<dependency.plugin.version>3.1.1</dependency.plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -62,6 +64,24 @@
 					</execution>
 				</executions>
 			</plugin>
+            		<plugin>
+                		<groupId>org.apache.maven.plugins</groupId>
+                		<artifactId>maven-assembly-plugin</artifactId>
+                		<executions>
+                    			<execution>
+                        			<phase>package</phase>
+                        			<goals>
+                            				<goal>single</goal>
+                        			</goals>
+                        			<configuration>
+                            				<appendAssemblyId>false</appendAssemblyId>
+                            				<descriptors>
+                                				<descriptor>src/main/assembly/zip.xml</descriptor>
+                            				</descriptors>
+                        			</configuration>
+                    			</execution>
+                		</executions>
+            		</plugin>
 		</plugins>
 	</build>
 </project>
